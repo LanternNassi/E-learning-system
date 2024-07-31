@@ -6,9 +6,11 @@ RUN mkdir /app
 
 WORKDIR /app
 
-ADD . /app/
+COPY . .
 
 RUN pip install -r requirements.txt
+
+RUN python manage.py collectstatic
 
 EXPOSE 8000
 
