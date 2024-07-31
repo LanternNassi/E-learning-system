@@ -1,18 +1,23 @@
-FROM python:3.6
+# Use the official Python image from the Docker Hub
+FROM python:3.9-slim
 
-ENV PYTHONUNBUFFERED 1
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-RUN mkdir /app
-
+# Set work directory
 WORKDIR /app
 
-COPY . .
-
+# Install dependencies
+COPY requirements.txt /app/
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-RUN python manage.py collectstatic
+# Copy project
+COPY . /app/
 
+# Expose the port the app runs on
 EXPOSE 8000
 
-CMD python manage.py runserver 0.0.0.0:8000
-
+# Run the application
+CMD ["sh", "-c", "python manage.py migrate && python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8000"]
