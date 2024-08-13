@@ -115,6 +115,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://elearning-483e8925-de5e-4230-a23f.renu-01.cranecloud.io',
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
